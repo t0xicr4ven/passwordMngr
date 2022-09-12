@@ -1,6 +1,8 @@
+import pyperclip
 import random
 import sys
 import string
+
 
 # print("""
 # ██████╗  █████╗ ███████╗███████╗██╗    ██╗ ██████╗ ██████╗ ██████╗     ███╗   ███╗ █████╗ ███╗   ██╗ █████╗  ██████╗ ███████╗██████╗ 
@@ -12,8 +14,11 @@ import string
 
 # """)
 
+### Creation of password
 def gen_passwd(lenOfPass) -> string:
-    return very_hard_passwd(lenOfPass)
+    passwd = very_hard_passwd(lenOfPass)
+    pyperclip.copy(passwd)
+    return passwd
 
 # Vhard pass generation
 def very_hard_passwd(lenOfPass):
@@ -21,6 +26,10 @@ def very_hard_passwd(lenOfPass):
     for _ in range(lenOfPass):
         the_passwd += "".join(random.choice(string.ascii_lowercase + string.ascii_uppercase + string.digits + string.punctuation))
     return the_passwd
+
+# password health checker
+def check_passwd(passwd_to_check):
+    print("The password you want to check: " + passwd_to_check)
 
 
 ### possible for a switch statment here
@@ -36,14 +45,13 @@ if len(sys.argv) >= 2:
             print("you have not entered length of password it will now default to 16")
             print("Your Password is: ")
             print(gen_passwd(16))
-    else:
-        print("something went wrong or number inputed")
+    # user wants to check the health of the password.
+    elif sys.argv[1] == "check":
+        print("You want to check the health of your password")
+        check_passwd(sys.argv[2])
 else:
     #no arguments entered, tell user to try again
     print("No arguments entered, please try again. or enter HELP as arg for a list of uses")
-
-
-## password generator
 
 
 
